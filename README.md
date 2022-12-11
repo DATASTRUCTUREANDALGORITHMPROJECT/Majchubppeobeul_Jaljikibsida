@@ -1,1 +1,0 @@
-# Majchubppeob-eul-Jaljikibsida
