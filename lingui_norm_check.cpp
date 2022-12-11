@@ -12,8 +12,8 @@ void start();
 void select();
 void go_sel();
 
-string sel1 = "¡Ü";
-string sel2 = "¡Û";
+string sel1 = "â—";
+string sel2 = "â—‹";
 
 void bad_word();
 void bw();
@@ -35,13 +35,38 @@ int retry = 0;
 
 void gotoxy(int x, int y);
 
+string bad_wo[MX];
+string bad_li[MX];
+
+#define BAD_MAX_SIZE 4
+
+string good_word_list[] = //ëŒ€ì²´ì–´
+{
+    "", "", "", ""
+};
+
+string bad_word_list[] = //ë‹¨ì–´
+{
+    "ë‹ˆì• ë¯¸", "ë³‘ì‹ ", "ì‹œë°œ", "ì¢†ê°™ë‹¤"
+}; // ë°˜ë“œì‹œ ì‚¬ì „ìˆœìœ¼ë¡œ ì •ë ¬ëœ ë°ì´í„°ë¥¼ ë„£ì–´ì•¼ í•œë‹¤.
+
+string bad_word_report[] = //ë°”ë¥´ì§€ ì•Šì€ ì´ìœ 
+{
+    "í˜ë¥œ+ë“œë¦½ì˜ í•©ì„±ì–´ì¸ íŒ¨ë“œë¦½ì´ë©° 'ë„ˆí¬ ì—„ë§ˆ'ë¼ëŠ” ëœ»ì…ë‹ˆë‹¤. /n ìƒëŒ€ë°©ì˜ ë¶€ëª¨ë‹˜ì„ ë¹„í•˜í•˜ëŠ” í‘œí˜„ì€ ê²Œì„ì—ì„œëŠ” ë¬¼ë¡ ì´ê³  ì–´ë””ì—ì„œë„ ì‚¬ìš©í•˜ë©´ ì•ˆë˜ê² ì£ ?",
+    "ë‹¤ë¦¬ ë³‘ì‹ , ì†ê°€ë½ ë³‘ì‹  ë“±ì˜ ìš©ë¡€ì—ì„œ ë³´ë“¯ì´ ì¥ì• ì¸ì„ ì¼ì»«ëŠ” ë§ì—ì„œ ê¸°ì›ë˜ì—ˆìŠµë‹ˆë‹¤. /n ë³¸ë˜ ì¥ì• ì¸ì„ ëª¨ìš•í•˜ëŠ” ë§ì´ì—ˆê¸°ì— ì¥ì• ì¸ì— ëŒ€í•œ í˜ì˜¤í‘œí˜„ì´ ë  ìˆ˜ ìˆìŠµë‹ˆë‹¤. /n ë‹¹ì—°í•˜ê²Œë„, ì‹¤ì œë¡œ ì¥ì• ê°€ ìˆëŠ” ì‚¬ëŒì€ íŠ¹íˆ ì´ ë§ì„ ë¶ˆì¾Œí•˜ê²Œ ìƒê°í•  ìˆ˜ ìˆìœ¼ë¯€ë¡œ ì‚¬ìš©ì„ ìì œí•´ì•¼ í•©ë‹ˆë‹¤.",
+    "ì›ë˜ 'ë„¤ ì–´ë¨¸ë‹ˆì™€ ì”¹ì„ í•  ë†ˆ'ì„ ì¤„ì¸ ë§ì´ë©°, ëª¨ê³„ì‚¬íšŒì˜€ë˜ ì˜¤ë‘ìº ì—¬ì§„ì¡±ì„ ë¹„í•˜í•˜ëŠ” ì˜ë¯¸ì…ë‹ˆë‹¤. /n ì¦‰, 'ì—¬ì§„ì¡±ì²˜ëŸ¼ ì²œë¥œì„ ëª¨ë¥´ëŠ” ë†ˆ'ì´ë¼ëŠ” ëœ»ì…ë‹ˆë‹¤. /n (ë„¤ ì–´ë¨¸ë‹ˆì™€ ì„±ê´€ê³„ë¥¼ ê°€ì§€ëŠ” ë†ˆë“¤ -> ë‹ˆë¯¸ì”¨íŒ”ë†ˆ -> ì”¨íŒ”ë†ˆ -> ì”¨íŒ”, ì‹œë°œ, ì‹œë°œ) /n íŠ¹ì •í•œ ëŒ€ìƒì„ ë¹„í•˜í•˜ë©°, ì¢‹ì€ ì˜ë¯¸ê°€ ì•„ë‹Œ ë¶€ì ì ˆí•œ ë‹¨ì–´ë¥¼ ì‚¬ìš©í•˜ì§€ ì•ŠëŠ”ê²ƒì´ ì¢‹ìŠµë‹ˆë‹¤.",
+    "ì‚¬ë¬¼ì´ ëª¹ì‹œ ë§ˆìŒì— ì•ˆ ë“¤ê±°ë‚˜ ë³´ê¸°ì— ì‹«ë‹¤ëŠ” ì˜ë¯¸ë¡œ, ë”ë¶ˆì–´ ë‚¨ì„±ì˜ ì„±ê¸°ê°™ë‹¤ë¥¼ ì†ë˜ê²Œ ë§í•˜ëŠ” ë‹¨ì–´ì…ë‹ˆë‹¤. /n ì¢‹ì€ ì˜ë¯¸ë„ ì•„ë‹ ë¿ë”ëŸ¬ íŠ¹ì • ëŒ€ìƒì„ ì†ë˜ê²Œ ë§í•˜ëŠ” í‘œí˜„ì„ ì‚¬ìš©í•˜ì§€ ì•ŠëŠ”ê²Œ ì¢‹ê² ì£ ?",
+};
+
+int bad_no;
+
 int main()
 {
 
     do {
         system("cls");
         select();
-        if(sel1 == "¡Ü") bad_word();
+        if(sel1 == "â—") bad_word();
         else speller();
         result();
     } while(retry);
@@ -49,16 +74,16 @@ int main()
     return 0;
 }
 
-void logo(int pos) // ±âº» Æ²
+void logo(int pos) // ê¸°ë³¸ í‹€
 {
-    cout << "  ¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬" << endl;
-    cout << "  ¢Å ¾î¹® ±Ô¹ü °Ë»ç±â ¢Ä" << endl;
-    cout << "  ¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬" << endl;
+    cout << "  â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”" << endl;
+    cout << "  â—‘ ì–´ë¬¸ ê·œë²” ê²€ì‚¬ê¸° â—" << endl;
+    cout << "  â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”" << endl;
     cout << endl;
     for(int i=0; i<31; i++)
         if(i==15)
         {
-            switch(pos) // ¹«½¼ »óÅÂÀÎÁö¿¡ µû¶ó ´Ş¶óÁü
+            switch(pos) // ë¬´ìŠ¨ ìƒíƒœì¸ì§€ì— ë”°ë¼ ë‹¬ë¼ì§
             {
                 case 1: start(); break;
                 case 2: bw(); break;
@@ -66,42 +91,42 @@ void logo(int pos) // ±âº» Æ²
                 case 4: res(); break;
             }
         }
-        else cout << "¦¡";
+        else cout << "â”€";
 }
 
 void start()
 {
-    cout << "¡Û °Ë»ç ¹æ½Ä ¼±ÅÃ ¡Û";
+    cout << "â—‹ ê²€ì‚¬ ë°©ì‹ ì„ íƒ â—‹";
 }
 
 void bw()
 {
-    cout << "¡Û ¼Ó¾î °Ë»ç ¡Û";
+    cout << "â—‹ ì†ì–´ ê²€ì‚¬ â—‹";
 }
 
 void spe()
 {
-    cout << "¡Û ¸ÂÃã¹ı °Ë»ç ¡Û";
+    cout << "â—‹ ë§ì¶¤ë²• ê²€ì‚¬ â—‹";
 }
 
 void res()
 {
-    cout << "¡Û °Ë»ç °á°ú ¡Û";
+    cout << "â—‹ ê²€ì‚¬ ê²°ê³¼ â—‹";
 }
 
 void select()
 {
     logo(1);
     cout << endl << endl << endl;
-    cout << endl << "   ¿ŞÂÊ°ú ¿À¸¥ÂÊ ¹æÇâÅ°¸¦ ´­·¯ ¼±ÅÃÇØ ÁÖ¼¼¿ä." << endl << endl;
-    cout << "       " << sel1 << "[¼Ó¾î °Ë»ç]";
+    cout << endl << "   ì™¼ìª½ê³¼ ì˜¤ë¥¸ìª½ ë°©í–¥í‚¤ë¥¼ ëˆŒëŸ¬ ì„ íƒí•´ ì£¼ì„¸ìš”." << endl << endl;
+    cout << "       " << sel1 << "[ì†ì–´ ê²€ì‚¬]";
     cout << "       ";
-    cout << sel2 << "[¸ÂÃã¹ı °Ë»ç]";
+    cout << sel2 << "[ë§ì¶¤ë²• ê²€ì‚¬]";
     cout << endl << endl;
     cout << endl << endl;
-    for(int i=0; i<48; i++) cout << "¦¡";
+    for(int i=0; i<48; i++) cout << "â”€";
     cout << endl << endl;
-    cout << "     ¡Ø ¿Ï·áµÇ¾úÀ¸¸é Space bar¸¦ ´­·¯ ÁÖ¼¼¿ä!";
+    cout << "     â€» ì™„ë£Œë˜ì—ˆìœ¼ë©´ Space barë¥¼ ëˆŒëŸ¬ ì£¼ì„¸ìš”!";
     go_sel();
 }
 
@@ -111,21 +136,21 @@ void go_sel()
     {
         if(GetAsyncKeyState(VK_LEFT) & 0x8000)
         {
-            sel1 = "¡Ü";
-            sel2 = "¡Û";
+            sel1 = "â—";
+            sel2 = "â—‹";
             gotoxy(7, 10);
-            cout << "¡Ü";
+            cout << "â—";
             gotoxy(26, 10);
-            cout << "¡Û";
+            cout << "â—‹";
         }
         if(GetAsyncKeyState(VK_RIGHT) & 0x8000)
         {
-            sel1 = "¡Û";
-            sel2 = "¡Ü";
+            sel1 = "â—‹";
+            sel2 = "â—";
             gotoxy(7, 10);
-            cout << "¡Û";
+            cout << "â—‹";
             gotoxy(26, 10);
-            cout << "¡Ü";
+            cout << "â—";
         }
         if(GetAsyncKeyState(VK_SPACE) & 0x8000) return;
     }
@@ -136,27 +161,94 @@ void bad_word()
     system("cls");
     logo(2);
     cout << endl << endl << endl;
-    cout << endl << "      ÀÔ·ÂÇÏ½Ç ¹®ÀåÀ» ÀÔ·ÂÇØ ÁÖ¼¼¿ä.";
+    cout << endl << "      ì…ë ¥í•˜ì‹¤ ë¬¸ì¥ì„ ì…ë ¥í•´ ì£¼ì„¸ìš”.";
     cout << endl << endl;
-    cout << endl << "       ¢¹ ";
+    cout << endl << "       â–· ";
     getline(cin, sentence);
     cout << endl << endl;
     loading(2);
-    // ºÎÀûÀıÇÑ ´Ü¾î¸¦ ¹ßÃéÇØ °Ë»ö
+    // ë¶€ì ì ˆí•œ ë‹¨ì–´ë¥¼ ë°œì·Œí•´ ê²€ìƒ‰
 }
+
+void bad_word2(Queue* q) //ë¹„ì†ì–´íŒë³„
+{
+    string tmp = sentence;
+    int prev = 0;
+    int cur;
+    cur = tmp.find(' ');
+    while(cur != string::npos)
+    {
+        int chk = 0;
+        string substring = tmp.substr(prev, cur - prev);
+
+        chk = bad_list(q, substring);
+
+        if(chk)
+        {
+            chk_sentence = chk_sentence + " [(" + to_string(q->rear + 1) + ")" + substring + "]";
+            good_sentence = good_sentence + " " + good_word_list[bad_no];
+        }
+        else
+        {
+            chk_sentence = chk_sentence + " " + substring;
+            good_sentence = good_sentence + " " + substring;
+        }
+
+        prev = cur + 1;
+        cur = tmp.find(' ', prev);
+    }
+    int chk = 0;
+    string substring = tmp.substr(prev, cur - prev);
+    chk = bad_list(q, substring);
+    if(chk)
+    {
+        chk_sentence = chk_sentence + " [(" + to_string(q->rear + 1) + ")" + substring + "]";
+        good_sentence = good_sentence + " " + good_word_list[bad_no];
+    }
+    else
+    {
+        chk_sentence = chk_sentence + " " + substring;
+        good_sentence = good_sentence + " " + substring;
+    }
+}
+
+int bad_list(Queue *q, string sliced_Str) // chk_sentence.c_str()
+{
+    int found = 0;
+    int i = BAD_MAX_SIZE;
+
+    int fir = 0, lst = i - 1;
+
+    while(fir <= lst)
+    {
+        int mid = (fir + lst) / 2;
+        if(strcmp(sliced_Str.c_str(), bad_word_list[mid].c_str()) == 1) fir = mid + 1;
+        else if(strcmp(sliced_Str.c_str(), bad_word_list[mid].c_str()) == -1) lst = mid - 1;
+        else
+        {
+            bad_no = mid;
+            found = 1;
+            push(q, sliced_Str, bad_word_report[mid]);
+            break;
+        }
+    }
+    return found;
+}
+
+
 
 void speller()
 {
     system("cls");
     logo(3);
     cout << endl << endl << endl;
-    cout << endl << "      ÀÔ·ÂÇÏ½Ç ¹®ÀåÀ» ÀÔ·ÂÇØ ÁÖ¼¼¿ä.";
+    cout << endl << "      ì…ë ¥í•˜ì‹¤ ë¬¸ì¥ì„ ì…ë ¥í•´ ì£¼ì„¸ìš”.";
     cout << endl << endl;
-    cout << endl << "       ¢¹ ";
+    cout << endl << "       â–· ";
     getline(cin, sentence);
     cout << endl << endl;
     loading(3);
-    // ¹®¹ı»ó ¸ÂÁö ¾ÊÀº ºÎºĞÀ» Ã£¾Æ °Ë»ö
+    // ë¬¸ë²•ìƒ ë§ì§€ ì•Šì€ ë¶€ë¶„ì„ ì°¾ì•„ ê²€ìƒ‰
 }
 
 void loading(int get)
@@ -164,8 +256,8 @@ void loading(int get)
     system("cls");
     logo(get);
     cout << endl << endl << endl << endl;
-    cout << "     °Ë»ç ÁßÀÔ´Ï´Ù, Àá½Ã¸¸ ±â´Ù·Á ÁÖ¼¼¿ä... " << endl << endl << "                ";
-    for(int j=0; j<10; j++) cout << "¡à";
+    cout << "     ê²€ì‚¬ ì¤‘ì…ë‹ˆë‹¤, ì ì‹œë§Œ ê¸°ë‹¤ë ¤ ì£¼ì„¸ìš”... " << endl << endl << "                ";
+    for(int j=0; j<10; j++) cout << "â–¡";
     cout << " 0%";
     Sleep(100);
     go_load();
@@ -177,7 +269,7 @@ void go_load()
     while(1)
     {
         gotoxy(16 + i++, 10);
-        cout << "¡á";
+        cout << "â– ";
         gotoxy(26, 10);
         printf(" %d%%", i*10);
         Sleep(100 + 10*i);
@@ -190,20 +282,20 @@ void result()
     system("cls");
     logo(4);
     cout << endl << endl << endl << endl;
-    if(!report_cnt) cout << "  ¹®Á¦µÇ°Å³ª ¿ÀÅ¸°¡ ÀÖ´Â ³»¿ëÀÌ ¾ø½À´Ï´Ù.";
+    if(!report_cnt) cout << "  ë¬¸ì œë˜ê±°ë‚˜ ì˜¤íƒ€ê°€ ìˆëŠ” ë‚´ìš©ì´ ì—†ìŠµë‹ˆë‹¤.";
     cout << endl << endl;
-    cout << "  ´Ù½Ã »ç¿ëÇÏ½Ã°Ú½À´Ï±î?(¿¹ ¾Æ´Ï¸é ¾Æ´Ï¿ä·Î¸¸ ´ë´äÇÏ½Ã±â ¹Ù¶ø´Ï´Ù)" << endl << endl;
-    cout << " ¢¹ ";
+    cout << "  ë‹¤ì‹œ ì‚¬ìš©í•˜ì‹œê² ìŠµë‹ˆê¹Œ?(ì˜ˆ ì•„ë‹ˆë©´ ì•„ë‹ˆìš”ë¡œë§Œ ëŒ€ë‹µí•˜ì‹œê¸° ë°”ëë‹ˆë‹¤)" << endl << endl;
+    cout << " â–· ";
     getline(cin, ret);
-    if(ret == "¿¹") retry = 1;
+    if(ret == "ì˜ˆ") retry = 1;
     else
     {
         system("cls");
-        cout << "ÇÁ·Î±×·¥À» Á¾·áÇÕ´Ï´Ù.";
+        cout << "í”„ë¡œê·¸ë¨ì„ ì¢…ë£Œí•©ë‹ˆë‹¤.";
         retry = 0;
     }
     cout << endl;
-    for(int i=0; i<43; i++) cout << "¦¡";
+    for(int i=0; i<43; i++) cout << "â”€";
 }
 
 void gotoxy(int x, int y)
