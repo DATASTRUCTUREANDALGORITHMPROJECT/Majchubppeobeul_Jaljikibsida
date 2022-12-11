@@ -16,9 +16,9 @@
 - [x] 2차 맞춤법 검사 기능
 
 ### Data Structure and Algorithm <br>
-> <code>Stack</code>
-<code>Binary search</code>
+> <code>Binary search</code>
 <code>Queue</code>
+<!-- <code>Stack</code> -->
 
 ### Skill <br>
 > <code>C++</code>
