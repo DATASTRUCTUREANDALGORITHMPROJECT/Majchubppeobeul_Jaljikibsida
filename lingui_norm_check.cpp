@@ -55,22 +55,25 @@ int is_emp(Queue* q);
 string wrong_wo[MX];
 string wrong_li[MX];
 
-#define WRONG_MAX_SIZE 2
+#define WRONG_MAX_SIZE 5
 
 string correct_word_list[] =
 {
-    "워낙(워낙에)", "제멋대로"
+    "됐다", "되었다", "워낙(워낙에)", "왠지", "제멋대로"
 };
 
 string wrong_word_list[] =
 {
-    "워낙에도", "지멋대로"
-};
+    "됬다", "돼었다", "워낙에도", "웬지", "지멋대로"
+}; // 반드시 사전순으로 정렬된 데이터를 넣어야 한다.
 
 string wrong_word_report[] =
 {
-    "'본디부터' 혹은 '두드러지게 아주.'를 의미하는 단어는 '워낙' 혹은 '워낙에'로 쓰시기 바랍니다.",
-    "'자기 마음대로'를 뜻하는 단어는 '제멋대로'로 쓰시기 바랍니다."
+    "'돼'와 '되'를 자주 혼동하여 쓰이는 경우가 있습니다.\n '돼'는 '되어'의 준말이므로, '되어'로 표현했을 때 어색하지 않으면 '돼'로,\n 어색하면 '되'로 표기합니다.", // 됬다
+    "'돼'와 '되'를 자주 혼동하여 쓰이는 경우가 있습니다.\n '돼'는 '되어'의 준말이므로, '되어'로 표현했을 때 어색하지 않으면 '돼'로,\n 어색하면 '되'로 표기합니다.", // 돼었다
+    "'본디부터' 혹은 '두드러지게 아주.'를 의미하는 단어는 '워낙' 혹은 '워낙에'로 쓰시기 바랍니다.", // 워낙에도
+    "'왜인지'가 줄어든 말은 '왠지'로, 잘못된 표현이니 '왠지'로 쓰시기 바랍니다.", // 웬지
+    "'자기 마음대로'를 뜻하는 단어는 '제멋대로'로 쓰시기 바랍니다.", // 지멋대로
 };
 
 string chk_sentence;
@@ -85,7 +88,7 @@ int main()
 {
     Queue *q = new Queue;
     Sleep(1000);
-    PlaySound(TEXT("bgm.wav"),NULL,SND_ASYNC);
+    PlaySound(TEXT("bgm.wav"), NULL, SND_ASYNC);
     do {
         initQueue(q);
         correct_sentence = "";
