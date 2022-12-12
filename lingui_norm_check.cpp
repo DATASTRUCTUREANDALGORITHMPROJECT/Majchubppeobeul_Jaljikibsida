@@ -124,6 +124,7 @@ int main()
     PlaySound(TEXT("bgm.wav"), NULL, SND_ASYNC);
     do {
         initQueue(q);
+        good_sentence = "";
         correct_sentence = "";
         chk_sentence = "";
         q->rear = -1;
