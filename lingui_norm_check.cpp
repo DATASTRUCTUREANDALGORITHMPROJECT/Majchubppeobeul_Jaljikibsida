@@ -461,7 +461,8 @@ void result(Queue* q)
             q->frnt++;
             cout << endl << "  " << "(" << i++ << ") " << pop(q, wrong_wo) << ": " << pop(q, wrong_li) << endl;
         }
-        cout << endl << endl << "  바른 문장: " << correct_sentence;
+        if(pos_s == 3) cout << endl << endl << "  바른 문장: " << correct_sentence;
+        else cout << endl << endl << "  바른 문장: " << good_sentence;
     }
     cout << endl << endl;
     cout << "  다시 사용하시겠습니까?(예 아니면 아니요로만 대답하시기 바랍니다)" << endl << endl;
