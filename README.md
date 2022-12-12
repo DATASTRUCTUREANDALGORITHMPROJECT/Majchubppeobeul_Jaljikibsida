@@ -26,10 +26,10 @@
 ### Plan and Report <br>
 > [📄 계획서](https://github.com/Majchubppeob-eul-Jaljikibsida/Majchubppeob-eul-Jaljikibsida/blob/main/Plan%20and%20Report/2022%20%E1%84%8C%E1%85%A1%E1%84%85%E1%85%AD%E1%84%80%E1%85%AE%E1%84%8C%E1%85%A9%E1%84%8B%E1%85%AA%20%E1%84%8B%E1%85%A1%E1%86%AF%E1%84%80%E1%85%A9%E1%84%85%E1%85%B5%E1%84%8C%E1%85%B3%E1%86%B7%20%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8C%E1%85%A6%E1%86%A8%E1%84%90%E1%85%B3%20%E1%84%80%E1%85%A8%E1%84%92%E1%85%AC%E1%86%A8%E1%84%89%E1%85%A5.dotx)<br>
 
-> [📄 보고서]()<br>
+> [📄 보고서](https://github.com/Majchubppeob-eul-Jaljikibsida/Majchubppeobeul_Jaljikibsida/blob/main/Plan%20and%20Report/2022%20%E1%84%8C%E1%85%A1%E1%84%85%E1%85%AD%E1%84%80%E1%85%AE%E1%84%8C%E1%85%A9%E1%84%8B%E1%85%AA%20%E1%84%8B%E1%85%A1%E1%86%AF%E1%84%80%E1%85%A9%E1%84%85%E1%85%B5%E1%84%8C%E1%85%B3%E1%86%B7%20%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8C%E1%85%A6%E1%86%A8%E1%84%90%E1%85%B3%20%E1%84%87%E1%85%A9%E1%84%80%E1%85%A9%E1%84%89%E1%85%A5.docx)<br>
 
 ### Result <br>
-> [🎥 시연 영상](https://github.com/Majchubppeob-eul-Jaljikibsida/Majchubppeob-eul-Jaljikibsida/blob/main/Plan%20and%20Report/2022%20%E1%84%8C%E1%85%A1%E1%84%85%E1%85%AD%E1%84%80%E1%85%AE%E1%84%8C%E1%85%A9%E1%84%8B%E1%85%AA%20%E1%84%8B%E1%85%A1%E1%86%AF%E1%84%80%E1%85%A9%E1%84%85%E1%85%B5%E1%84%8C%E1%85%B3%E1%86%B7%20%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8C%E1%85%A6%E1%86%A8%E1%84%90%E1%85%B3%20%E1%84%80%E1%85%A8%E1%84%92%E1%85%AC%E1%86%A8%E1%84%89%E1%85%A5.dotx)<br>
+> [🎥 시연 영상](https://youtu.be/Vv0a1YsK3jA)<br>
 
 ### Team members <br>
 |깃허브 프로필| 이름 | 역할 |
