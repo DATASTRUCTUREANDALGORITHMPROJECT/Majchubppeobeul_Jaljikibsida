@@ -35,4 +35,4 @@
 |깃허브 프로필| 이름 | 역할 |
 | :---- | :----- | :---- |
 |<a target="_blank" href="https://github.com/chickenchi"><img alt="김민우" src="https://avatars.githubusercontent.com/u/37361885?v=4" width="130" /></a> | 1205 김민우  | 1,2차 맞춤법 검사 기능 구현  |
-|<a target="_blank" href="https://github.com/YangYubin12"><img alt="양유빈" src="https://avatars.githubusercontent.com/u/102217712?v=4" width="130" /></a>  | 1210 양유빈  | 아이들을 위한 은어 필터링 및 바로 잡이 기능 구현, 계획서 및 보고서 작성  |
+|<a target="_blank" href="https://github.com/YangYubin12"><img alt="양유빈" src="https://avatars.githubusercontent.com/u/102217712?v=4" width="130" /></a>  | 1210 양유빈  | 아이들을 위한 은어 필터링 및 바로 잡이 기능 구현, 계획서 및 보고서 작성 |
